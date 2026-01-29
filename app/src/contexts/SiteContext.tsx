@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, type ReactNode } from 'react';
 import type { SiteContent } from '@/types';
 import { defaultContent } from '@/data/defaultContent';
 
@@ -37,9 +37,16 @@ export function SiteProvider({ children }: { children: ReactNode }) {
     }
     return defaultContent;
   });
+  const hasStorageError = useRef(false);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+    if (hasStorageError.current) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+    } catch (error) {
+      hasStorageError.current = true;
+      console.error('Failed to persist content to localStorage:', error);
+    }
   }, [content]);
 
   const updateContent = (newContent: SiteContent) => {

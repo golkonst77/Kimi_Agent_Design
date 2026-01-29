@@ -38,6 +38,10 @@ export function AboutEditor() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 1024 * 1024) {
+        toast.error('Файл слишком большой. Используйте изображение до 1MB.');
+        return;
+      }
       const reader = new FileReader();
       reader.onloadend = () => {
         handleChange('image', reader.result as string);
