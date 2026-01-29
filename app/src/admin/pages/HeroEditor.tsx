@@ -8,11 +8,12 @@ import { toast } from 'sonner';
 import { ImageIcon } from 'lucide-react';
 
 export function HeroEditor() {
-  const { content, updateHero, updateCompanyName } = useSite();
+  const { content, updateHero, updateCompanyName, updateLogoUrl } = useSite();
   const { hero } = content;
 
   const [formData, setFormData] = useState({
     companyName: content.companyName,
+    logoUrl: content.logoUrl,
     title: hero.title,
     subtitle: hero.subtitle,
     backgroundImage: hero.backgroundImage,
@@ -27,6 +28,7 @@ export function HeroEditor() {
   const handleSave = () => {
     const trimmedName = formData.companyName.trim();
     updateCompanyName(trimmedName || content.companyName);
+    updateLogoUrl(formData.logoUrl.trim() || content.logoUrl);
     updateHero({
       title: formData.title,
       subtitle: formData.subtitle,
@@ -43,6 +45,21 @@ export function HeroEditor() {
       const reader = new FileReader();
       reader.onloadend = () => {
         handleChange('backgroundImage', reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 1024 * 1024) {
+        toast.error('Файл слишком большой. Используйте логотип до 1MB.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleChange('logoUrl', reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -79,6 +96,46 @@ export function HeroEditor() {
               onChange={(e) => handleChange('companyName', e.target.value)}
               placeholder="Например: Interior Studio"
             />
+          </div>
+
+          {/* Logo */}
+          <div className="space-y-2">
+            <Label>Логотип</Label>
+            <div className="flex gap-4 items-start">
+              <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                <img
+                  src={formData.logoUrl}
+                  alt="Logo preview"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <div className="flex-1">
+                <Input
+                  type="text"
+                  value={formData.logoUrl}
+                  onChange={(e) => handleChange('logoUrl', e.target.value)}
+                  placeholder="URL логотипа"
+                  className="mb-2"
+                />
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => document.getElementById('logo-image')?.click()}
+                  >
+                    <ImageIcon className="w-4 h-4 mr-2" />
+                    Загрузить
+                  </Button>
+                  <input
+                    id="logo-image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoUpload}
+                    className="hidden"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Background Image */}

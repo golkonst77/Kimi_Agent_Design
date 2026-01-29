@@ -2,6 +2,7 @@ import type { SiteContent } from '@/types';
 
 export const defaultContent: SiteContent = {
   companyName: 'Interior Studio',
+  logoUrl: '/logo-placeholder.svg',
   hero: {
     title: 'Создаю интерьеры, в которых хочется жить',
     subtitle: 'Дизайн интерьера премиум-класса для квартир и домов',

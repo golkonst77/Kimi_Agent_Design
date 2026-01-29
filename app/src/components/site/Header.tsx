@@ -127,7 +127,7 @@ export function Header() {
                 }`}
               >
                 <img
-                  src="/logo-placeholder.svg"
+                  src={content.logoUrl || '/logo-placeholder.svg'}
                   alt={`${content.companyName} logo`}
                   className="h-7 w-auto"
                 />

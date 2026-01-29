@@ -49,7 +49,7 @@ export function Footer() {
             <Link to="/" className="flex items-center gap-3 mb-4">
               <span className="flex items-center justify-center rounded-lg bg-white/90 p-1">
                 <img
-                  src="/logo-placeholder.svg"
+                  src={content.logoUrl || '/logo-placeholder.svg'}
                   alt={`${content.companyName} logo`}
                   className="h-8 w-auto"
                 />

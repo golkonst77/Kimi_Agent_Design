@@ -57,6 +57,7 @@ export interface ContactInfo {
 
 export interface SiteContent {
   companyName: string;
+  logoUrl: string;
   hero: HeroContent;
   about: AboutContent;
   portfolio: PortfolioItem[];

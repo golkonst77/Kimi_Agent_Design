@@ -7,6 +7,7 @@ interface SiteContextType {
   content: SiteContent;
   updateContent: (newContent: SiteContent) => void;
   updateCompanyName: (companyName: SiteContent['companyName']) => void;
+  updateLogoUrl: (logoUrl: SiteContent['logoUrl']) => void;
   updateHero: (hero: SiteContent['hero']) => void;
   updateAbout: (about: SiteContent['about']) => void;
   updatePortfolio: (portfolio: SiteContent['portfolio']) => void;
@@ -57,6 +58,10 @@ export function SiteProvider({ children }: { children: ReactNode }) {
     setContent(prev => ({ ...prev, companyName }));
   };
 
+  const updateLogoUrl = (logoUrl: SiteContent['logoUrl']) => {
+    setContent(prev => ({ ...prev, logoUrl }));
+  };
+
   const updateHero = (hero: SiteContent['hero']) => {
     setContent(prev => ({ ...prev, hero }));
   };
@@ -87,6 +92,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
         content,
         updateContent,
         updateCompanyName,
+        updateLogoUrl,
         updateHero,
         updateAbout,
         updatePortfolio,

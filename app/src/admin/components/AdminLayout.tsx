@@ -50,7 +50,7 @@ export function AdminLayout() {
           <Link to="/admin/dashboard" className="flex items-center gap-3">
             <span className="flex items-center justify-center rounded-md bg-white/90 p-1">
               <img
-                src="/logo-placeholder.svg"
+                src={content.logoUrl || '/logo-placeholder.svg'}
                 alt={`${content.companyName} logo`}
                 className="h-7 w-auto"
               />
