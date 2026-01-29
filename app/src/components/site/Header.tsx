@@ -130,6 +130,9 @@ export function Header() {
                   src={content.logoUrl || '/logo-placeholder.svg'}
                   alt={`${content.companyName} logo`}
                   className="h-7 w-auto"
+                  onError={(event) => {
+                    event.currentTarget.src = '/logo-placeholder.svg';
+                  }}
                 />
               </span>
               <span className="text-sm sm:text-base">

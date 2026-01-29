@@ -50,20 +50,69 @@ export function HeroEditor() {
     }
   };
 
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 1024 * 1024) {
         toast.error('Файл слишком большой. Используйте логотип до 1MB.');
         return;
       }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        handleChange('logoUrl', reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      const dataUrl = await resizeImage(file, 256, 0.8);
+      if (!dataUrl) {
+        toast.error('Не удалось обработать логотип. Попробуйте PNG/JPG.');
+        return;
+      }
+      handleChange('logoUrl', dataUrl);
     }
   };
+
+  const resizeImage = (file: File, maxSize: number, quality: number) =>
+    new Promise<string | null>((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result !== 'string') {
+          resolve(null);
+          return;
+        }
+        const img = new Image();
+        img.onload = () => {
+          const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+          const width = Math.max(1, Math.round(img.width * scale));
+          const height = Math.max(1, Math.round(img.height * scale));
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(null);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const outputType = file.type === 'image/png' ? 'image/png' : 'image/webp';
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                resolve(null);
+                return;
+              }
+              const outReader = new FileReader();
+              outReader.onloadend = () => {
+                resolve(typeof outReader.result === 'string' ? outReader.result : null);
+              };
+              outReader.readAsDataURL(blob);
+            },
+            outputType,
+            quality
+          );
+        };
+        img.onerror = () => resolve(null);
+        img.src = reader.result;
+      };
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
 
   return (
     <div className="space-y-6">
@@ -107,6 +156,9 @@ export function HeroEditor() {
                   src={formData.logoUrl}
                   alt="Logo preview"
                   className="max-h-full max-w-full object-contain"
+                  onError={(event) => {
+                    event.currentTarget.src = '/logo-placeholder.svg';
+                  }}
                 />
               </div>
               <div className="flex-1">
@@ -129,11 +181,15 @@ export function HeroEditor() {
                   <input
                     id="logo-image"
                     type="file"
-                    accept="image/*"
+                    accept="image/png,image/jpeg,image/svg+xml"
                     onChange={handleLogoUpload}
                     className="hidden"
                   />
                 </div>
+                <p className="mt-2 text-xs text-gray-500">
+                  Поддерживаются PNG/JPG/SVG. Логотип автоматически сжимается
+                  до 256px по длинной стороне.
+                </p>
               </div>
             </div>
           </div>

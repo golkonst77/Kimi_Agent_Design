@@ -52,6 +52,9 @@ export function Footer() {
                   src={content.logoUrl || '/logo-placeholder.svg'}
                   alt={`${content.companyName} logo`}
                   className="h-8 w-auto"
+                  onError={(event) => {
+                    event.currentTarget.src = '/logo-placeholder.svg';
+                  }}
                 />
               </span>
               <span className="text-2xl font-light tracking-wide text-white">
