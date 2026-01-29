@@ -68,31 +68,36 @@ export function Services() {
             return (
               <div
                 key={service.id}
-                className={`group p-6 bg-gray-50 rounded-lg transition-all duration-500 hover:bg-white hover:shadow-lg hover:-translate-y-1 ${
+                className={`group relative flex h-full flex-col p-6 rounded-2xl border border-gray-200/60 bg-white/80 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-gray-200 hover:bg-white hover:shadow-xl ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Icon className="w-6 h-6 text-white" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 rounded-2xl bg-gradient-to-b from-gray-50/80 to-transparent" />
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-xl border border-gray-200 bg-gray-900/95 flex items-center justify-center mb-4 shadow-sm group-hover:scale-105 transition-transform">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-light text-gray-900 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {service.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-light text-gray-900 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  {service.description}
-                </p>
-                <div className="text-lg font-medium text-gray-900 mb-4">
-                  {service.price}
+                <div className="mt-auto pt-5">
+                  <div className="text-lg font-medium text-gray-900 mb-3">
+                    {service.price}
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    onClick={scrollToContact}
+                  >
+                    Подробнее
+                  </Button>
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                  onClick={scrollToContact}
-                >
-                  Подробнее
-                </Button>
               </div>
             );
           })}
