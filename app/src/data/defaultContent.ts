@@ -1,0 +1,132 @@
+import type { SiteContent } from '@/types';
+
+export const defaultContent: SiteContent = {
+  companyName: 'Interior Studio',
+  hero: {
+    title: 'Создаю интерьеры, в которых хочется жить',
+    subtitle: 'Дизайн интерьера премиум-класса для квартир и домов',
+    backgroundImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=80',
+    primaryButtonText: 'Экономь 15 процентов на проекте',
+    secondaryButtonText: 'Проекты',
+  },
+  about: {
+    title: 'Обо мне',
+    description: 'Я — профессиональный дизайнер интерьера с более чем 10-летним опытом работы. Моя философия проста: создавать пространства, которые отражают индивидуальность владельца и приносят радость каждый день.\n\nКаждый проект для меня — это уникальная история, которую я помогаю рассказать через пространство, цвет, текстуру и свет. Я работаю с клиентами на всех этапах — от первой встречи до финальной расстановки мебели.\n\nМой подход основан на внимании к деталям, понимании потребностей клиента и использовании качественных материалов. Результат — интерьеры, которые не только красивы, но и функциональны.',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',
+    stats: {
+      years: 10,
+      projects: 150,
+      satisfaction: 98,
+    },
+  },
+  portfolio: [
+    {
+      id: '1',
+      title: 'Минималистичная квартира',
+      category: 'apartments',
+      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+      description: 'Современная квартира в светлых тонах',
+    },
+    {
+      id: '2',
+      title: 'Загородный дом',
+      category: 'houses',
+      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
+      description: 'Уютный семейный дом',
+    },
+    {
+      id: '3',
+      title: 'Офис open-space',
+      category: 'commercial',
+      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+      description: 'Современное рабочее пространство',
+    },
+    {
+      id: '4',
+      title: 'Лофт в центре',
+      category: 'apartments',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+      description: 'Индустриальный стиль в городской квартире',
+    },
+    {
+      id: '5',
+      title: 'Вилла у моря',
+      category: 'houses',
+      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+      description: 'Роскошная вилла с панорамным видом',
+    },
+    {
+      id: '6',
+      title: 'Бутик-отель',
+      category: 'commercial',
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+      description: 'Дизайн номеров бутик-отеля',
+    },
+  ],
+  services: [
+    {
+      id: '1',
+      title: 'Консультация',
+      description: 'Индивидуальная встреча для обсуждения вашего проекта, определения стиля и составления плана работ',
+      price: 'от 5 000 ₽',
+      icon: 'MessageCircle',
+    },
+    {
+      id: '2',
+      title: 'Дизайн-проект',
+      description: 'Полный комплект документации: планировка, 3D-визуализация, спецификация материалов и мебели',
+      price: 'от 1 500 ₽/м²',
+      icon: 'Palette',
+    },
+    {
+      id: '3',
+      title: 'Авторский надзор',
+      description: 'Контроль реализации проекта на всех этапах ремонта, взаимодействие с подрядчиками',
+      price: 'от 15 000 ₽/мес',
+      icon: 'Eye',
+    },
+    {
+      id: '4',
+      title: 'Комплектация',
+      description: 'Подбор и закупка мебели, декора, материалов по торговым скидкам дизайнера',
+      price: 'от 30 000 ₽',
+      icon: 'Package',
+    },
+  ],
+  testimonials: [
+    {
+      id: '1',
+      name: 'Анна и Михаил',
+      photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
+      projectType: 'Дизайн 3-комнатной квартиры',
+      text: 'Работать с этим дизайнером было одним удовольствием! Она поняла наше видение идеально и создала интерьер, который превзошёл все ожидания. Рекомендуем всем!',
+      rating: 5,
+    },
+    {
+      id: '2',
+      name: 'Сергей Петров',
+      photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
+      projectType: 'Ремонт загородного дома',
+      text: 'Профессионал высочайшего уровня. Внимательна к деталям, всегда на связи, предлагает креативные решения. Результат — дом мечты!',
+      rating: 5,
+    },
+    {
+      id: '3',
+      name: 'Елена Васильева',
+      photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
+      projectType: 'Дизайн студии',
+      text: 'Очень довольна результатом! Маленькая квартира превратилась в стильное и функциональное пространство. Спасибо за терпение и понимание!',
+      rating: 5,
+    },
+  ],
+  contacts: {
+    phone: '+7 (999) 123-45-67',
+    email: 'hello@interiorstudio.ru',
+    address: 'Москва, ул. Дизайнерская, 15',
+    socialLinks: {
+      instagram: 'https://instagram.com',
+      telegram: 'https://t.me',
+      whatsapp: 'https://wa.me',
+    },
+  },
+};
